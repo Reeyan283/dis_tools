@@ -1,0 +1,21 @@
+{
+    "gateway": {
+        "url": "wss://gateway.discord.gg/?v=9&encoding=json"
+    },
+    "author": {
+        "id":  "290699797747466261"
+    },
+    "logs": {
+        "cId": "874043735128809503"
+    },
+    "whiteList": [
+        "290699797747466261",
+        "410608145929338882",
+        "410271247726018560",
+        "613504781847101440"
+    ],
+    "prefixes": [
+        "."
+    ],
+    "token": "mfa.fq4Ff3519eu8PWRBbGim3YzjUi0_hhFi-3FB_5VADS8CuVuuYS-pW3HZJgw-wk2W5-F84qmaKGtBGHQ2_B70"
+}
