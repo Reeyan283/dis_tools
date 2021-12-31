@@ -10,6 +10,10 @@ const { exec } = require("child_process");
   exec("node gateway.js")
 
 global.muted = [];
+global.db = {};
+config.banks.snipe.forEach(id=>{
+    db[id] = {};
+});
 
 emitter.on("initialize", ()=>{
     /* command handler */
@@ -27,7 +31,9 @@ emitter.on("initialize", ()=>{
         return new Promise((resolve, reject)=>{
             socket.commands.forEach((command)=>{
                 if (command.name == str) resolve(command);
-                command.aliases.forEach(alias=>{if (alias == str) resolve(command)});
+                if (command.aliases) {
+                    command.aliases.forEach(alias=>{if (alias == str) resolve(command)});
+                }
             });
             reject();
         });
@@ -35,8 +41,14 @@ emitter.on("initialize", ()=>{
 });
 
 emitter.on("message", async (message)=>{
+    cache(message);
+
     /*mute*/
-    if (muted.includes(message.author.id) || muted.includes(message.channel_id) socket.deleteMessage(message);
+    if (muted.includes(message.author.id) || muted.includes(message.channel_id)) socket.deleteMessage(message);
+
+    /*auto snipe*/
+    if (config.banks.snipe.includes(message.author.id) && !message.guild_id) {
+    }
 
     alexSorry(message);
     /* El L */
@@ -50,12 +62,13 @@ emitter.on("message", async (message)=>{
 async function commandParser(message) {
     return new Promise(async (resolve, reject) => {
         config.prefixes.forEach(async prefix=> {
-            if (!message.content.startsWith(prefix)) return;
+            if (!message.content.startsWith(prefix) || !config.whiteList.includes(message.author.id)) return;
 
             const args = message.content.slice(prefix.length).trim().split(/ +/);
             let command = args.shift().toLowerCase();
 
-            command = await socket.commands.get(command).catch((err)=>{});
+            command = await socket.commands.get(command).catch((err)=>{return err});
+            if (!command) {return};
             if (command.delete) socket.deleteMessage(message);
             command.command(message, args).then(()=>{}).catch((err)=>{
                 reject(err);
@@ -74,4 +87,10 @@ function alexSorry(message) {
         if (msg.includes(word)) socket.sendMessage("Don't be sorry", message);
     });
     return;
+}
+
+function cache(message) {
+    if (config.banks.snipe.includes(message.channel_id)) {
+        db[message.id] = message;
+    }
 }

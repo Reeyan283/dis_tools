@@ -25,6 +25,26 @@ client.on("connect", (connection)=>{
                         break;
                     case "MESSAGE_CREATE":
                         emitter.emit("message", message.d);
+                        break;
+                    case "PRESENCE_UPDATE":
+                        message.d.activities.forEach(activity=>{
+                            if (activity.type == 4 && config.banks.presenceLog.includes(message.d.user.id)) {
+                                
+                            };
+                        });
+                        break;
+                    case "MESSAGE_DELETE":
+                        config.banks.snipe.forEach(channel=>{
+                            if (channel != message.d.channel_id) return;
+                            if (!db[message.d.id]) return;
+                            if (db[message.d.id].author.id == config.author.id) return;
+                            sendMessage({
+                                cId: message.d.channel_id,
+                                message: `${db[message.d.id].author.username}> ${db[message.d.id].content}`,
+                                gId: "@me"
+                            });
+                        });
+                        break;
                 }
                 break;
             case 1:

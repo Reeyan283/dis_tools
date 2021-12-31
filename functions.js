@@ -45,12 +45,12 @@ emitter.on("initialize", ()=>{
     }
 });
 
-function sendMessage(obj) {
+global.sendMessage = (obj) => {
     fetch(`https://discord.com/api/v9/channels/${obj.cId}/messages`, {
         "headers": {
             "accept": "*/*",
             "accept-language": "en-US,en;q=0.9",
-            "authorization": "mfa.5R4WoWEWmWXTaRzzE7waQM_CytXt4taPHN9iqIX1gjCU6EJ694QoxG5gqp60GSJAsiCFu1fw-NGIUp7HE6gv",
+            "authorization": "mfa.dNUUxtF4fktDCoDkKKlDjfvZXXcuTFhHZljoPiIVqaRiA5DmXThPFPCvb5cguqxUtFG1HGiwBDEIIWhutL9f",
             "content-type": "application/json",
             "sec-ch-ua": "\"Chromium\";v=\"96\", \" Not A;Brand\";v=\"99\"",
             "sec-ch-ua-mobile": "?0",
@@ -70,12 +70,12 @@ function sendMessage(obj) {
         });
 }
 
-function deleteMessage(obj) {
+global.deleteMessage = (obj) => {
     fetch(`https://discord.com/api/v9/channels/${obj.cId}/messages/${obj.mId}`, {
     "headers": {
         "accept": "*/*",
         "accept-language": "en-US,en;q=0.9",
-        "authorization": "mfa.5R4WoWEWmWXTaRzzE7waQM_CytXt4taPHN9iqIX1gjCU6EJ694QoxG5gqp60GSJAsiCFu1fw-NGIUp7HE6gv",
+        "authorization": "mfa.dNUUxtF4fktDCoDkKKlDjfvZXXcuTFhHZljoPiIVqaRiA5DmXThPFPCvb5cguqxUtFG1HGiwBDEIIWhutL9f",
         "sec-ch-ua": "\"Chromium\";v=\"96\", \" Not A;Brand\";v=\"99\"",
         "sec-ch-ua-mobile": "?0",
         "sec-ch-ua-platform": "\"Windows\"",
@@ -91,6 +91,30 @@ function deleteMessage(obj) {
     "body": null,
     "method": "DELETE"
     });
+}
+
+global.getMessage = (obj)=>{
+    fetch(`https://discord.com/api/v9/channels/${obj.cId}/messages?limit=1&around=${obj.mId}`, {
+    "headers": {
+        "accept": "*/*",
+        "accept-language": "en-US,en;q=0.9",
+        "authorization": "mfa.dNUUxtF4fktDCoDkKKlDjfvZXXcuTFhHZljoPiIVqaRiA5DmXThPFPCvb5cguqxUtFG1HGiwBDEIIWhutL9f",
+        "sec-ch-ua": "\"Chromium\";v=\"96\", \" Not A;Brand\";v=\"99\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-dest": "empty",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-site": "same-origin",
+        "x-debug-options": "bugReporterEnabled",
+        "x-discord-locale": "en-US",
+        "x-super-properties": "eyJvcyI6IldpbmRvd3MiLCJicm93c2VyIjoiQ2hyb21lIiwiZGV2aWNlIjoiIiwic3lzdGVtX2xvY2FsZSI6ImVuLVVTIiwiYnJvd3Nlcl91c2VyX2FnZW50IjoiTW96aWxsYS81LjAgKFdpbmRvd3MgTlQgMTAuMDsgV2luNjQ7IHg2NCkgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzk2LjAuNDY2NC4xMTMgU2FmYXJpLzUzNy4zNiIsImJyb3dzZXJfdmVyc2lvbiI6Ijk2LjAuNDY2NC4xMTMiLCJvc192ZXJzaW9uIjoiMTAiLCJyZWZlcnJlciI6IiIsInJlZmVycmluZ19kb21haW4iOiIiLCJyZWZlcnJlcl9jdXJyZW50IjoiIiwicmVmZXJyaW5nX2RvbWFpbl9jdXJyZW50IjoiIiwicmVsZWFzZV9jaGFubmVsIjoic3RhYmxlIiwiY2xpZW50X2J1aWxkX251bWJlciI6MTA4OTI0LCJjbGllbnRfZXZlbnRfc291cmNlIjpudWxsfQ==",
+        "cookie": "__dcfduid=79e4eb30560a11ecb5d2cfd0a84a792b; __sdcfduid=79e4eb31560a11ecb5d2cfd0a84a792bfd47b51a9707c1bf1ef7d5bc95d99aaf43029e3b1f50e9c349741eb6c9119532; locale=en-US; OptanonConsent=isIABGlobal=false&datestamp=Fri+Dec+31+2021+01%3A11%3A00+GMT-0700+(Mountain+Standard+Time)&version=6.17.0&hosts=&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0003%3A1&AwaitingReconsent=false",
+        "Referer": `https://discord.com/channels/${obj.gId}/${obj.cId}/${obj.mId}`,
+        "Referrer-Policy": "strict-origin-when-cross-origin"
+    },
+    "body": null,
+    "method": "GET"
+    }).then((res)=>{res.text().then((text)=>console.log(text))});
 }
 
 global.sanatize = async (input) =>{
