@@ -1,0 +1,26 @@
+{
+  "name": "dis_tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Reeyan283/dis_tools.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Reeyan283/dis_tools/issues"
+  },
+  "homepage": "https://github.com/Reeyan283/dis_tools#readme",
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "figlet": "^1.5.2",
+    "node-fetch": "2.0",
+    "websocket": "^1.0.34"
+  }
+}
