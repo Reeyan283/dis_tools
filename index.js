@@ -46,11 +46,8 @@ emitter.on("message", async (message)=>{
     /*mute*/
     if (muted.includes(message.author.id) || muted.includes(message.channel_id)) socket.deleteMessage(message);
 
-    /*auto snipe*/
-    if (config.banks.snipe.includes(message.author.id) && !message.guild_id) {
-    }
-
     alexSorry(message);
+
     /* El L */
     if (config.whiteList.includes(message.author.id) && message.content.toLowerCase() == 'l') return require("./commands/figlet.js").command(message, ["L"]);
 
@@ -83,7 +80,7 @@ function alexSorry(message) {
     let msg = message.content.toLowerCase()
       .replaceAll(" ", "")
       .replaceAll(".", "")
-    wordBank.alexSorry.forEach((word)=>{
+    config.banks.alexSorry.forEach((word)=>{
         if (msg.includes(word)) socket.sendMessage("Don't be sorry", message);
     });
     return;
